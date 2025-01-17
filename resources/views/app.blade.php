@@ -11,7 +11,6 @@
     <header>
         <nav class="navbar">
             <a href="/" class="title">ENQUETES</a>
-            <a href="{{ route('poll.create') }}">CRIAR ENQUETE</a>
         </nav>
     </header>
     <main class="main-content">

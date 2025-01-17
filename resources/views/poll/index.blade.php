@@ -1,10 +1,10 @@
 @extends('app')
 @section('content')
-    <div>
+    <div class="polls-index">
+        <a href="{{ route('poll.create') }}" class="create-poll-link">CRIAR ENQUETE</a>
         @if ($polls->count() <= 0)
             <h1 class="section-title">Ainda não existem enquetes! Que tal criar uma?</h1>
         @else
-            <h1 class="section-title">Enquetes</h1>
             <div class="polls">
                 @foreach ($polls as $poll)
                 <div class="poll">
