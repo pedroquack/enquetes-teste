@@ -14,4 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PollController::class, 'index']);
+Route::get('/', [PollController::class, 'index'])->name('poll.index');
+Route::get('/poll/create',[PollController::class, 'create'])->name('poll.create');
+Route::get('/poll/{poll_id}',[PollController::class, 'show'])->name('poll.show');
+Route::post('/poll',[PollController::class, 'store'])->name('poll.store');

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Poll extends Model
 {
@@ -16,8 +16,13 @@ class Poll extends Model
         'final_date',
     ];
 
-    public function options(): BelongsToMany
+    protected $casts = [
+        'start_date' => 'datetime',
+        'final_date' => 'datetime',
+    ];
+
+    public function options(): HasMany
     {
-        return $this->belongsToMany(Option::class);
+        return $this->hasMany(Option::class);
     }
 }

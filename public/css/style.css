@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
-    --main-background: rgb(204, 204, 204);
-    --black-content: rgb(61, 61, 61);
+    --main-background: rgb(241, 241, 241);
+    --gray: rgb(172, 172, 172);
     --shadow: rgba(0, 0, 0, 0.5);
+    --lightgreen: rgb(119, 211, 66);
+    --green: rgb(80, 167, 31);
+    --green-hover: rgb(27, 129, 27);
+    --darkgreen: rgb(8, 70, 8);
 }
 *{
     padding: 0;
@@ -10,15 +14,19 @@
     box-sizing: border-box;
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
-    color: white;
 }
 html{
     background-color: var(--main-background);
 }
+.error-message{
+    margin-top: 0.1rem;
+    color: red;
+    font-size: 0.9rem;
+}
 .navbar{
     position: relative;
     top: 0%;
-    background-color: var(--black-content);
+    background-color: white;
     padding: 1.5rem;
     display: flex;
     justify-content: center;
@@ -29,21 +37,175 @@ html{
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
+    color: black;
 }
 .main-content{
     display: flex;
     justify-content: center;
-}
-.show-content{
-    padding: 2rem;
-    margin-top: 3rem;
-    background-color: var(--black-content);
-    width: 75%;
-    box-shadow: 0px 5px 10px var(--shadow);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding-top: 3rem;
 }
 .section-title{
+    font-size: 1.5rem;
+}
+.polls{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.poll{
+    background-color: white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 5px 10px var(--shadow);
+    border-radius: 0.5rem;
+    width: 300px;
+}
+.poll-status{
+    background-color: lightgray;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    color: gray;
+}
+.poll-open{
+    background-color: var(--lightgreen);
+    color: var(--darkgreen);
+}
+.poll-header{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+    height: 200px;
+}
+.poll-title{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.poll-date{
+    font-weight: 400;
+}
+.poll-button{
+    background-color: var(--green);
+    padding: 0.5rem;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0px 2px 5px var(--shadow);
+    margin-top: 0.5rem;
+    transition: ease 0.1s;
+}
+.poll-button:hover{
+    background-color: var(--green-hover);
+    transition: ease 0.1s;
+}
+
+.poll-create{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 5px 10px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    margin: 1rem;
+}
+.poll-create h1{
     font-size: 1.3rem;
+}
+.poll-create-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+.form-data{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.form-data-poll{
+    width: 100%;
+}
+.form-data-options{
+    width: 100%;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+}
+.form-group input{
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 2px 5px var(--shadow);
+    border: 0;
+}
+.date-inputs{
+    display: flex;
+    gap: 1rem;
+}
+.submit-button{
+    background-color: var(--green);
+    padding: 0.5rem;
+    width: 100%;
+    border: 0;
+    border-radius: 0.5rem;
+    transition: ease 0.1s;
+}
+.submit-button:hover{
+    background-color: var(--green-hover);
+    transition: ease 0.1s;
+    cursor: pointer;
+}
+
+.add-option{
+    border: 0;
+    background-color: lightgray;
+    padding: 0.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    transition: ease 0.1s;
+}
+.input-new-option{
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+.add-option:hover{
+    background-color: gray;
+    transition: ease 0.1s;
+    cursor: pointer;
+}
+.remove-option{
+    border: 0;
+    background-color: rgb(235, 78, 78);
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0.2rem;
+    box-shadow: 0px 2px 5px var(--shadow);
+    transition: ease 0.1s;
+}
+.remove-option:hover{
+    background-color: rgb(190, 44, 44);
+    transition: ease 0.1s;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .form-data{
+        flex-direction: column;
+    }
+    .date-inputs{
+        flex-direction: column;
+    }
 }
