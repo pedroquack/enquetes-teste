@@ -14,7 +14,9 @@
         </nav>
     </header>
     <main class="main-content">
-        @yield('content')
+        <div class="show-content">
+            @yield('content')
+        </div>
     </main>
 </body>
 </html>
