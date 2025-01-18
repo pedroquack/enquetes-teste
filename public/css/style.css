@@ -230,6 +230,9 @@ html{
     padding: 2rem;
     width: 50%;
 }
+.poll-description{
+    text-align: center;
+}
 .poll-vote-form{
     display: flex;
     flex-direction: column;
@@ -251,7 +254,23 @@ html{
     height: 24px;
     width: 24px;
 }
+
+.poll-vote-form button{
+    border: 0;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--green);
+    transition: ease 0.1s;
+}
+.poll-vote-form button:hover{
+    background-color: var(--green-hover);
+    transition: ease 0.1s;
+    cursor: pointer;
+}
 @media (max-width: 768px) {
+    *{
+        font-size: 12px;
+    }
     .form-data{
         flex-direction: column;
     }
@@ -259,6 +278,9 @@ html{
         flex-direction: column;
     }
     .create-poll-link{
+        width: 90%;
+    }
+    .poll-container{
         width: 90%;
     }
 }

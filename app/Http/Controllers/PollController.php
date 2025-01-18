@@ -107,4 +107,16 @@ class PollController extends Controller
     {
         //
     }
+
+    public function vote(Request $request){
+        $request->validate([
+            'option' => ['required','integer'],
+        ]);
+        $option = Option::find($request->option);
+
+        $option->votes++;
+        $option->save();
+
+        return redirect()->route('poll.show',$option->poll->id);
+    }
 }

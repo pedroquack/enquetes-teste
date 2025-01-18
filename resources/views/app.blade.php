@@ -17,5 +17,5 @@
         @yield('content')
     </main>
 </body>
-<script src="{{ asset('js/scripts.js') }}"></script>
+@yield('scripts')
 </html>

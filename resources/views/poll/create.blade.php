@@ -55,3 +55,6 @@
     </form>
 </div>
 @endsection
+@section('scripts')
+    <script src="{{ asset('js/scripts.js') }}"></script>
+@endsection
