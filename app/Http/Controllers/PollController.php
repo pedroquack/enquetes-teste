@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UpdateVotes;
 use App\Models\Option;
 use App\Models\Poll;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class PollController extends Controller
             ]);
         }
 
-        return redirect()->route('poll.index');
+        return redirect()->route('poll.show',$poll->id);
     }
 
     /**
@@ -111,6 +112,16 @@ class PollController extends Controller
         $poll->final_date = $request->final_date;
         $poll->save();
 
+        $poll->options()->delete();
+
+        foreach($request->options as $option){
+            Option::create([
+                'text' => $option,
+                'poll_id' => $poll->id
+            ]);
+        }
+
+        return redirect()->route('poll.show',$poll->id)->with('msg','Enquete atualizada com sucesso!');
     }
 
     /**
@@ -119,9 +130,15 @@ class PollController extends Controller
      * @param  \App\Models\Poll  $poll
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Poll $poll)
+    public function destroy($id)
     {
-        //
+        $poll = Poll::find($id);
+        if(!isset($poll)){
+            abort(404, 'Enquete não encontrada!');
+        }
+
+        $poll->delete();
+        return redirect()->route('poll.index')->with('msg','Enquete excluída com sucesso!');
     }
 
     public function vote(Request $request){
@@ -129,10 +146,11 @@ class PollController extends Controller
             'option' => ['required','integer'],
         ]);
         $option = Option::find($request->option);
-
         $option->votes++;
         $option->save();
 
-        return redirect()->route('poll.show',$option->poll->id);
+        UpdateVotes::dispatch($option);
+
+        return redirect()->route('poll.show',$option->poll->id)->with('msg','Voto depositado com sucesso!');
     }
 }

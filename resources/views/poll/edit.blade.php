@@ -33,10 +33,13 @@
                 <button id="add-option" type="button" class="add-option">Adicionar Opção</button>
             </div>
             <div id="form-data-options" class="form-data-options">
-                @foreach ($poll->options as $index=>$option)
+                @foreach ($poll->options as $index => $option)
                 <div class="form-group">
                     <label for="title">Opção {{ $index+1 }}</label>
-                    <input type="text" name="options[]" value="{{ $option->text }}" id="title">
+                    <input type="text" name="options[]" value="{{ $option->text }}" id="title" class="@if($index+1 > 3) input-new-option @endif">
+                    @if ($index+1 > 3)
+                        <button type="button" id="remove-option" class="remove-option">Remover</button>
+                    @endif
                 </div>
                 @endforeach
                 @error('options.*')

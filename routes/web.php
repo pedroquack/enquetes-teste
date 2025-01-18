@@ -21,3 +21,4 @@ Route::post('/poll',[PollController::class, 'store'])->name('poll.store');
 Route::get('/poll/{id}/edit',[PollController::class, 'edit'])->name('poll.edit');
 Route::put('poll/{id}',[PollController::class, 'update'])->name('poll.update');
 Route::post('/poll/{id}/vote',[PollController::class, 'vote'])->name('poll.vote');
+Route::delete('/poll/{id}',[PollController::class, 'destroy'])->name('poll.destroy');
