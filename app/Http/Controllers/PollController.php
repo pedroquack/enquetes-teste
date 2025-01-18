@@ -9,33 +9,17 @@ use Illuminate\Http\Request;
 
 class PollController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $polls = Poll::all();
         return view('poll.index',compact('polls'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('poll.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -62,39 +46,26 @@ class PollController extends Controller
         return redirect()->route('poll.show',$poll->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Poll  $poll
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $poll = Poll::find($id);
+        if(!isset($poll)){
+            return redirect()->back()->with('msg','Enquete não encontrada!');
+        }
 
         return view('poll.show',compact('poll'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Poll  $poll
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $poll = Poll::find($id);
+        if(!isset($poll)){
+            return redirect()->back()->with('msg','Enquete não encontrada!');
+        }
 
         return view('poll.edit',compact('poll'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Poll  $poll
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -106,6 +77,10 @@ class PollController extends Controller
         ]);
 
         $poll = Poll::find($id);
+
+        if(!isset($poll)){
+            return redirect()->back()->with('msg','Enquete não encontrada!');
+        }
 
         $poll->title = $request->title;
         $poll->start_date = $request->start_date;
@@ -124,17 +99,11 @@ class PollController extends Controller
         return redirect()->route('poll.show',$poll->id)->with('msg','Enquete atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Poll  $poll
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $poll = Poll::find($id);
         if(!isset($poll)){
-            abort(404, 'Enquete não encontrada!');
+            return redirect()->back()->with('msg','Enquete não encontrada!');
         }
 
         $poll->delete();
@@ -146,6 +115,12 @@ class PollController extends Controller
             'option' => ['required','integer'],
         ]);
         $option = Option::find($request->option);
+        if(!isset($option)){
+            return redirect()->back()->with('msg','Opção não encontrada!');
+        }
+        if(!now()->between($option->poll->start_date,$option->poll->final_date)){
+            return redirect()->back()->with('msg','Esta enquete não pode receber votos!');
+        }
         $option->votes++;
         $option->save();
 

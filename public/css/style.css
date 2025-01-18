@@ -321,6 +321,9 @@ html{
     *{
         font-size: 12px;
     }
+    .poll{
+        width: 230px;
+    }
     .form-data{
         flex-direction: column;
     }
@@ -332,5 +335,8 @@ html{
     }
     .poll-container{
         width: 90%;
+    }
+    .poll-actions{
+        flex-direction: column;
     }
 }
