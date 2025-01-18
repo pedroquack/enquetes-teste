@@ -80,9 +80,11 @@ class PollController extends Controller
      * @param  \App\Models\Poll  $poll
      * @return \Illuminate\Http\Response
      */
-    public function edit(Poll $poll)
+    public function edit($id)
     {
-        //
+        $poll = Poll::find($id);
+
+        return view('poll.edit',compact('poll'));
     }
 
     /**
@@ -92,9 +94,23 @@ class PollController extends Controller
      * @param  \App\Models\Poll  $poll
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Poll $poll)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => ['required'],
+            'start_date' => ['date',],
+            'final_date' => ['date','after:start_date'],
+            'options' => ['required','array','min:3'],
+            'options.*' => ['required','string']
+        ]);
+
+        $poll = Poll::find($id);
+
+        $poll->title = $request->title;
+        $poll->start_date = $request->start_date;
+        $poll->final_date = $request->final_date;
+        $poll->save();
+
     }
 
     /**
