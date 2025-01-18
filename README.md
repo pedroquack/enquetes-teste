@@ -1,3 +1,7 @@
+# Descrição do Projeto
+
+O sistema consiste em uma plataforma web de criação de enquetes com opções para votar. Possuindo CRUD completo de enquetes e atualização em tempo real quando ocorre algum voto (Via PUSHER).
+
 # Como rodar na sua máquina:
 
 1. Clone o repositório na sua máquina
